@@ -1,0 +1,91 @@
+{
+  // Module-level configuration for the entry HAP of the SnoreAlarm app.
+  // This file defines the abilities, services and resources contained
+  // within the module as well as various metadata such as abilities,
+  // device configurations and dependencies.  See HarmonyOS documentation
+  // for details on the format of this file.
+  "module": {
+    // The name of this module.  When packaging the application a
+    // corresponding HAP file (named <name>.hap) will be generated.
+    "name": "entry",
+
+    // The type of module.  The "entry" type defines the main HAP of
+    // the application containing the primary UI.  Other types such as
+    // "har" or "feature" can be used for shared libraries and feature
+    // modules respectively.  In this simple project we only need
+    // one entry module.
+    "type": "entry",
+
+    // A list of abilities provided by this module.  Each ability
+    // defines an entry point into the application.  There is one
+    // UIAbility named EntryAbility, responsible for the main
+    // interface, and one ServiceAbility named SnoreServiceAbility
+    // implementing the background snore detection logic.
+    "abilities": [
+      {
+        // EntryAbility is a UIAbility that presents the main page
+        // where the user can start and stop snore detection.  It
+        // declares no special skills because it is launched via
+        // the launcher and by the user explicitly.
+        "name": "EntryAbility",
+        "type": "page",
+        "exported": true,
+        "skills": [
+          {
+            // Allow the ability to appear in the app launcher.  When
+            // the application icon is tapped the system looks for
+            // an ability with the launcher skill.
+            "entities": ["ohos.want.action.launcher"],
+            "actions": ["ohos.want.action.main"],
+            "uris": []
+          }
+        ]
+      },
+      {
+        // SnoreServiceAbility implements a service that runs
+        // continuously in the background to monitor audio and
+        // wake the user when snoring is detected.  It must be
+        // exported so that the EntryAbility can start it.  The
+        // type "service" denotes that no UI will be created.
+        "name": "SnoreServiceAbility",
+        "type": "service",
+        "exported": true
+      }
+    ],
+
+    // The main entrance ability.  When the user launches the app
+    // the system starts this ability.  It must match one of the
+    // names in the abilities list above.
+    "mainAbility": "EntryAbility",
+
+    // Resource configuration.  In this simple example we only
+    // define the default configuration for all device types.  The
+    // key is the resource folder prefix under src/main/resources.
+    "deviceConfig": {
+      "default": {
+        "moduleName": "entry"
+      }
+    },
+
+    // Source code configuration.  The srcPath field points to the
+    // directory containing ArkTS/JS files and other assets.  All
+    // code in src/main/ets will be compiled into the HAP.
+    "srcPath": "src/main/ets",
+
+    // Entrypoint file to launch the main ability when running in
+    // previewer.  In an ArkTS project this is usually index.ets
+    // under the root of the pages directory.  We specify
+    // snippet "default" to rely on the default resolution from
+    // EntryAbility.
+    "page": {
+      "pages": ["pages/index"],
+      "main": "pages/index"
+    },
+
+    // Declare dependencies for this module.  This example does not
+    // depend on external libraries requiring har references, so
+    // the dependencies list remains empty.  If you need to use
+    // third‑party Har files they should be declared here.
+    "dependencies": []
+  }
+}
