@@ -1,63 +1,41 @@
 {
-  // Application-level configuration file for the SnoreAlarm project.
-  // See HarmonyOS documentation for details on the format.
   "app": {
-    // The unique bundle name of the application.  Replace the vendor domain
-    // with your own if you publish this project.  This value is used by the
-    // system to identify your app and should not clash with others.
     "bundleName": "com.example.snorealarm",
-
-    // Version information.  Bump the code and name when you release new
-    // versions of the application.
     "version": {
       "code": 1,
       "name": "1.0.0"
     },
-
-    // Target API level and minimum compatible API level.  HarmonyOS
-    // applications developed with ArkTS require these fields.  API 11
-    // corresponds to HarmonyOS NEXT as of 2026.
     "apiTarget": 11,
     "apiCompatible": 10
   },
-
-  // Define which device categories this application supports.  The snore
-    // detection functionality makes sense on phones, tablets and watches.  The
-    // system will filter your app from other categories (for example, TVs).
   "deviceConfig": {
     "default": {
       "type": ["phone", "tablet", "watch"]
     }
   },
-
-  // Runtime permissions requested by this application.  Each permission
-    // includes a reason that will be displayed to the user the first time it
-    // is requested.  When adding new hardware features in the code (for
-    // example, accessing the microphone or vibrator) you must declare the
-    // corresponding permission here.
   "permissions": [
     {
-      // The application records audio from the microphone to analyse snoring.
       "name": "ohos.permission.MICROPHONE",
       "reason": "Recording audio to detect snoring",
       "usedScene": {
-        "ability": [
-          "EntryAbility",
-          "SnoreServiceAbility"
-        ]
+        "ability": ["EntryAbility", "SnoreServiceAbility"]
       }
     },
     {
-      // The vibrator is used to wake the user when snoring is detected.
       "name": "ohos.permission.VIBRATE",
       "reason": "Triggering vibration alarms"
     },
     {
-      // The flashlight requires camera permissions on most devices.  The
-      // application uses the torch to flash the LED as part of the wake‑up
-      // alarm.  Some devices may instead require ohos.permission.FLASH_LIGHT.
       "name": "ohos.permission.CAMERA",
-      "reason": "Controlling the flashlight for alarm notifications"
+      "reason": "Controlling flashlight for alarms"
+    },
+    {
+      "name": "ohos.permission.FLASHLIGHT",
+      "reason": "Flashing torch light for wake-up alarms"
+    },
+    {
+      "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+      "reason": "Running continuous snore monitoring in background"
     }
   ]
 }
